@@ -71,10 +71,10 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)include\;$(SolutionDir)include\3D\;$(SolutionDir)include\SOLID\;$(SolutionDir)include\qhull\;$(SolutionDir)src\;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)include\;$(SolutionDir)include\3D\;$(SolutionDir)include\SOLID\;$(SolutionDir)include\qhull\;$(SolutionDir)src\;$(SolutionDir)src\broad\;$(SolutionDir)src\complex\;$(SolutionDir)src\convex\;$(SolutionDir)src\qhull\;$(SolutionDir)include\MT\;%(AdditionalHeaderUnitDependencies);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(SolutionDir)include\;$(SolutionDir)include\3D\;$(SolutionDir)include\SOLID\;$(SolutionDir)include\qhull\;$(SolutionDir)src\;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)include\;$(SolutionDir)include\3D\;$(SolutionDir)include\SOLID\;$(SolutionDir)include\qhull\;$(SolutionDir)src\;$(SolutionDir)src\broad\;$(SolutionDir)src\complex\;$(SolutionDir)src\convex\;$(SolutionDir)src\qhull\;$(SolutionDir)include\MT\;%(AdditionalHeaderUnitDependencies);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(SolutionDir)include\;$(SolutionDir)include\3D\;$(SolutionDir)include\SOLID\;$(SolutionDir)include\qhull\;$(SolutionDir)src\;$(IncludePath)</IncludePath>
@@ -119,6 +119,8 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalHeaderUnitDependencies>
+      </AdditionalHeaderUnitDependencies>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -134,6 +136,8 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalHeaderUnitDependencies>
+      </AdditionalHeaderUnitDependencies>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -150,57 +154,100 @@
     <ClInclude Include="include\3D\Tuple3.h" />
     <ClInclude Include="include\3D\Tuple4.h" />
     <ClInclude Include="include\3D\Vector.h" />
+    <ClInclude Include="include\GEN_MinMax.h" />
+    <ClInclude Include="include\GEN_random.h" />
+    <ClInclude Include="include\MT\Interval.h" />
+    <ClInclude Include="include\MT\Matrix3x3.h" />
+    <ClInclude Include="include\MT\Quaternion.h" />
+    <ClInclude Include="include\MT\Transform.h" />
+    <ClInclude Include="include\MT\Tuple3.h" />
+    <ClInclude Include="include\MT\Tuple4.h" />
+    <ClInclude Include="include\MT\Vector3.h" />
+    <ClInclude Include="include\MT_BBox.h" />
+    <ClInclude Include="include\MT_Interval.h" />
+    <ClInclude Include="include\MT_Matrix3x3.h" />
+    <ClInclude Include="include\MT_Point3.h" />
+    <ClInclude Include="include\MT_Quaternion.h" />
+    <ClInclude Include="include\MT_Scalar.h" />
+    <ClInclude Include="include\MT_ScalarTracer.h" />
+    <ClInclude Include="include\MT_Transform.h" />
+    <ClInclude Include="include\MT_Vector3.h" />
+    <ClInclude Include="include\SOLID.h" />
     <ClInclude Include="include\SOLID\solid.h" />
-    <ClInclude Include="src\AlgoTable.h" />
-    <ClInclude Include="src\BBox.h" />
-    <ClInclude Include="src\BBoxTree.h" />
-    <ClInclude Include="src\Box.h" />
-    <ClInclude Include="src\Complex.h" />
-    <ClInclude Include="src\Cone.h" />
-    <ClInclude Include="src\Convex.h" />
-    <ClInclude Include="src\Cylinder.h" />
-    <ClInclude Include="src\Encounter.h" />
-    <ClInclude Include="src\Endpoint.h" />
-    <ClInclude Include="src\IndexArray.h" />
-    <ClInclude Include="src\Object.h" />
-    <ClInclude Include="src\Polygon.h" />
-    <ClInclude Include="src\Polyhedron.h" />
-    <ClInclude Include="src\Polytope.h" />
-    <ClInclude Include="src\Response.h" />
-    <ClInclude Include="src\RespTable.h" />
-    <ClInclude Include="src\Shape.h" />
-    <ClInclude Include="src\Simplex.h" />
-    <ClInclude Include="src\Sphere.h" />
-    <ClInclude Include="src\Transform.h" />
-    <ClInclude Include="src\VertexBase.h" />
+    <ClInclude Include="include\SOLID_broad.h" />
+    <ClInclude Include="include\SOLID_types.h" />
+    <ClInclude Include="samples\Plugin.h" />
+    <ClInclude Include="src\broad\BP_Endpoint.h" />
+    <ClInclude Include="src\broad\BP_EndpointList.h" />
+    <ClInclude Include="src\broad\BP_Proxy.h" />
+    <ClInclude Include="src\broad\BP_ProxyList.h" />
+    <ClInclude Include="src\broad\BP_Scene.h" />
+    <ClInclude Include="src\complex\DT_BBoxTree.h" />
+    <ClInclude Include="src\complex\DT_CBox.h" />
+    <ClInclude Include="src\complex\DT_Complex.h" />
+    <ClInclude Include="src\convex\DT_Accuracy.h" />
+    <ClInclude Include="src\convex\DT_Array.h" />
+    <ClInclude Include="src\convex\DT_Box.h" />
+    <ClInclude Include="src\convex\DT_Cone.h" />
+    <ClInclude Include="src\convex\DT_Convex.h" />
+    <ClInclude Include="src\convex\DT_Cylinder.h" />
+    <ClInclude Include="src\convex\DT_GJK.h" />
+    <ClInclude Include="src\convex\DT_Hull.h" />
+    <ClInclude Include="src\convex\DT_IndexArray.h" />
+    <ClInclude Include="src\convex\DT_LineSegment.h" />
+    <ClInclude Include="src\convex\DT_Minkowski.h" />
+    <ClInclude Include="src\convex\DT_PenDepth.h" />
+    <ClInclude Include="src\convex\DT_Point.h" />
+    <ClInclude Include="src\convex\DT_Polyhedron.h" />
+    <ClInclude Include="src\convex\DT_Polytope.h" />
+    <ClInclude Include="src\convex\DT_Shape.h" />
+    <ClInclude Include="src\convex\DT_Sphere.h" />
+    <ClInclude Include="src\convex\DT_Transform.h" />
+    <ClInclude Include="src\convex\DT_Triangle.h" />
+    <ClInclude Include="src\convex\DT_TriEdge.h" />
+    <ClInclude Include="src\convex\DT_VertexBase.h" />
+    <ClInclude Include="src\DT_AlgoTable.h" />
+    <ClInclude Include="src\DT_Encounter.h" />
+    <ClInclude Include="src\DT_Object.h" />
+    <ClInclude Include="src\DT_Response.h" />
+    <ClInclude Include="src\DT_RespTable.h" />
+    <ClInclude Include="src\DT_Scene.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="samples\x_wing.cpp" />
-    <ClCompile Include="src\BBoxTree.cpp" />
-    <ClCompile Include="src\Box.cpp" />
-    <ClCompile Include="src\C-api.cpp" />
-    <ClCompile Include="src\Complex.cpp" />
-    <ClCompile Include="src\Cone.cpp" />
-    <ClCompile Include="src\Convex.cpp" />
-    <ClCompile Include="src\Cylinder.cpp" />
-    <ClCompile Include="src\Endpoint.cpp" />
-    <ClCompile Include="src\Object.cpp" />
-    <ClCompile Include="src\Polygon.cpp" />
-    <ClCompile Include="src\Polyhedron.cpp" />
-    <ClCompile Include="src\Response.cpp" />
-    <ClCompile Include="src\RespTable.cpp" />
-    <ClCompile Include="src\Simplex.cpp" />
-    <ClCompile Include="src\Sphere.cpp" />
-    <ClCompile Include="src\Transform.cpp" />
+    <ClCompile Include="samples\Plugin.cpp" />
+    <ClCompile Include="samples\sample.cpp" />
+    <ClCompile Include="src\broad\BP_C-api.cpp" />
+    <ClCompile Include="src\broad\BP_EndpointList.cpp" />
+    <ClCompile Include="src\broad\BP_Proxy.cpp" />
+    <ClCompile Include="src\broad\BP_Scene.cpp" />
+    <ClCompile Include="src\complex\DT_BBoxTree.cpp" />
+    <ClCompile Include="src\complex\DT_Complex.cpp" />
+    <ClCompile Include="src\convex\DT_Accuracy.cpp" />
+    <ClCompile Include="src\convex\DT_Box.cpp" />
+    <ClCompile Include="src\convex\DT_Cone.cpp" />
+    <ClCompile Include="src\convex\DT_Convex.cpp" />
+    <ClCompile Include="src\convex\DT_Cylinder.cpp" />
+    <ClCompile Include="src\convex\DT_LineSegment.cpp" />
+    <ClCompile Include="src\convex\DT_PenDepth.cpp" />
+    <ClCompile Include="src\convex\DT_Point.cpp" />
+    <ClCompile Include="src\convex\DT_Polyhedron.cpp" />
+    <ClCompile Include="src\convex\DT_Polytope.cpp" />
+    <ClCompile Include="src\convex\DT_Sphere.cpp" />
+    <ClCompile Include="src\convex\DT_Triangle.cpp" />
+    <ClCompile Include="src\convex\DT_TriEdge.cpp" />
+    <ClCompile Include="src\DT_C-api.cpp" />
+    <ClCompile Include="src\DT_Encounter.cpp" />
+    <ClCompile Include="src\DT_Object.cpp" />
+    <ClCompile Include="src\DT_RespTable.cpp" />
+    <ClCompile Include="src\DT_Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="samples\Makefile" />
-    <None Include="samples\sample" />
-    <None Include="samples\teapot" />
+    <None Include="include\Makefile.am" />
     <None Include="samples\teapot.vrt" />
-    <None Include="samples\x_wing" />
     <None Include="samples\x_wing.vrt" />
-    <None Include="src\Makefile" />
+    <None Include="src\broad\Makefile.am" />
+    <None Include="src\complex\Makefile.am" />
+    <None Include="src\convex\Makefile.am" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
