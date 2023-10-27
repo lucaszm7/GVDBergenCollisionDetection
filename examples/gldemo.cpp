@@ -59,6 +59,8 @@
 #include "MT_Matrix3x3.h"
 #include "MT_Transform.h"
 
+#define USE_COMPLEX
+
 inline MT_Scalar irnd() { return 2.0f * MT_random() - 1.0f; }
 
 const MT_Scalar SPACE_SIZE = 0.1f;  // Size of the space 

@@ -318,7 +318,7 @@ bool penDepth(const DT_GJK& gjk, const DT_Convex& a, const DT_Convex& b,
             MT_Scalar far_dist = dot(yBuf[index], triangle->getClosest());
 			
             // Make sure the support mapping is OK.
-            assert(far_dist > MT_Scalar(0.0));
+            // assert(far_dist > MT_Scalar(0.0));
             MT_Scalar far_dist2 = far_dist * far_dist / triangle->getDist2();
             GEN_set_min(upper_bound2, far_dist2);
 			

@@ -2,41 +2,40 @@
 #pragma once
 
 #include <vector>
+#include <list>
 #include <iostream>
 #include <memory>
 #include <Eigen/Core>
 
-#include <SOLID.h>
+#include "SOLID.h"
 
-#ifndef _WIN32
-#define __stdcall 
-#endif
-
-#ifdef _WIN32
-#define DLLExport __declspec(dllexport)
-#else
-#define DLLExport
-#endif
-
-
-extern "C"
+struct PluginCollisionData
 {
-	// Collision Detection
-	DLLExport void InitCollisionDetection();
-	DLLExport bool CollisionCheck();
-	DLLExport void* GetCollisionResultPtr();
+	float point1[3];
+	float point2[3];
+	float normal[3];
+};
 
-	// Colon
-	DLLExport void ConstructColonComplexShape(const void* vertex, unsigned int count);
-	DLLExport void UpdateColonComplexShape(const void* vertex);
-	DLLExport DT_ObjectHandle GetColonObject();
-	
-	// Endo
-	DLLExport void ConstructEndoComplexShape (const void* vertex, unsigned int count);
-	DLLExport void UpdateEndoComplexShape (const void* vertex);
-	DLLExport DT_ObjectHandle GetEndoObject();
+enum class ShapeType
+{
+	CUBE,
+	SPHERE,
+	CYLINDER
+};
 
-	// Utility
-	DLLExport void Dispose();
-}
+void InitCollisionDetection();
+void Dispose();
+
+unsigned int CollisionCheck();
+void* GetCollisionResultPtr();
+std::list<PluginCollisionData>* GetVectorCollisionResult();
+
+unsigned int ConstructComplexShape(const void* vertex, const unsigned int* indices, unsigned int count);
+unsigned int ConstructRigidBody(ShapeType shapeType, const float* pos, const float radius, const float height);
+void UpdateComplexShape(unsigned int id, const void* vertex);
+void UpdateObjectPosition(unsigned int id, const float* pos);
+void UpdateObjectRotation(unsigned int id, const float* rot);
+void UpdateObjectScale(unsigned int id, const float* scale);
+void UpdateObjectModelMatrix(unsigned int id, const float* mat);
+
 

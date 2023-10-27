@@ -97,13 +97,10 @@ void display_bbox(const MT_Point3& min, const MT_Point3& max)
     glEnable(GL_DEPTH_TEST);
 }
 
-
-
 class GLShape {
 public:
     virtual void paint() const = 0;
 };
-
 
 class GLSphere : public GLShape {
     MT_Scalar radius;
@@ -115,7 +112,6 @@ public:
         glutSolidSphere(radius, 20, 20);
     }
 };
-
 
 class GLBox : public GLShape {
     MT_Vector3 extent;
@@ -131,7 +127,6 @@ public:
         glPopMatrix();
     }
 };
-
 
 class GLCone : public GLShape {
     MT_Scalar bottomRadius;
@@ -192,9 +187,6 @@ public:
         }
     }
 };
-
-
-
 
 struct MassProps {
 	DT_Scalar   m_mass;
@@ -284,13 +276,10 @@ private:
 	MT_Vector3      m_color; 
 };
 
-
-
 MassProps immobile = {
     0.0f,
     { 0.0f, 0.0f, 0.0f }
 };
-
 
 MassProps massBox = {
     1.0f,
@@ -322,10 +311,12 @@ const MT_Scalar SPACE_SIZE = 2;
 const int NumObjects     = 100;
 Object object[NumObjects];
 
+#define USE_BOXES
+
 #ifdef USE_BOXES
 
-static GLBox          gl_mnm(1.0f, 1.0f, 1.0f);
-static DT_ShapeHandle sm_mnm = DT_NewBox(1.0f, 1.0f, 1.0f);
+static GLCylinder          gl_mnm(1.0f, 1.0f);
+static DT_ShapeHandle sm_mnm = DT_NewCylinder(1.0f, 1.0f);
 
 #else
 
@@ -333,7 +324,6 @@ static GLSphere       gl_mnm(1.0f);
 static DT_ShapeHandle sm_mnm = DT_NewSphere(1.0f);
 
 #endif
-
 
 static GLBox          gl_ground(50.0f, 2.0f * GroundMargin, 50.0f);
 
@@ -470,9 +460,6 @@ DT_Bool body2ground_fix(void *client_data,
 	return DT_CONTINUE;
 }
 
-
-
-
 void display(void) 
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
@@ -492,10 +479,6 @@ void display(void)
     glFlush();
     glutSwapBuffers();
 }
-
-
-
-
 
 static MT_Scalar DISTANCE = 20; 
 
@@ -575,7 +558,6 @@ void toggleIdle()
     }
 }
 
-
 void setCamera() 
 {
 	glLoadIdentity();
@@ -598,7 +580,6 @@ void stepFront() { ele += STEPSIZE; if (azi >= 360) azi -= 360; setCamera(); }
 void stepBack() { ele -= STEPSIZE; if (azi < 0) azi += 360; setCamera(); }
 void zoomIn() { DISTANCE -= 1; setCamera(); }
 void zoomOut() { DISTANCE += 1; setCamera(); }
-
 
 void myReshape(int w, int h) 
 {

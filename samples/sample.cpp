@@ -8,12 +8,13 @@
 #include "MT_Vector3.h"
 #include "MT_Quaternion.h"
 #include <chrono>	
-#include "Plugin.h"
+#include "GVDBPlugin.h"
 
 #define SPACE_SIZE 20
 #define NUM_ITER 10000
 
 void CreateTorusVertices(std::vector<float>& vertices);
+
 
 void main() {
 	auto start = std::chrono::high_resolution_clock::now();

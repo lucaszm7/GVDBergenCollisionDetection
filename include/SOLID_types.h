@@ -24,6 +24,8 @@
 #ifndef SOLID_TYPES_H
 #define SOLID_TYPES_H
 
+#define SOLID_STATIC
+
 #if defined(_WIN32)
 #   if defined(SOLID_STATIC)
 #      define DECLSPEC extern

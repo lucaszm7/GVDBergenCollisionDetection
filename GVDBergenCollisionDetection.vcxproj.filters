@@ -39,9 +39,6 @@
     <ClInclude Include="include\SOLID\solid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="samples\Plugin.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\DT_AlgoTable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -210,11 +207,20 @@
     <ClInclude Include="src\broad\BP_Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="samples\Plugin.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="examples\dynamics\Dynamic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="examples\dynamics\Kinetic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="examples\dynamics\RigidBody.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="samples\Plugin.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\DT_C-api.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -287,7 +293,19 @@
     <ClCompile Include="src\broad\BP_Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="samples\sample.cpp">
+    <ClCompile Include="samples\Plugin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="examples\dynamics\Dynamic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="examples\dynamics\Kinetic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="examples\dynamics\RigidBody.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="examples\gldemo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -298,5 +316,9 @@
     <None Include="src\convex\Makefile.am" />
     <None Include="src\complex\Makefile.am" />
     <None Include="src\broad\Makefile.am" />
+    <None Include="examples\dynamics\Makefile.am" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="examples\dynamics\CMakeLists.txt" />
   </ItemGroup>
 </Project>
