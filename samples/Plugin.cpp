@@ -5,41 +5,25 @@
 
 #include "Plugin.h"
 
-struct PluginObject
-{
-	unsigned int id;
-	DT_ObjectHandle object;
-	DT_ShapeHandle shape;
-	DT_VertexBaseHandle vertexBase;
-};
-
-struct PluginScene
-{
-	DT_SceneHandle     scene;
-	DT_RespTableHandle respTable;
-	DT_ResponseClass   objectClass;
-
-	DT_RespTableHandle fix_respTable;
-	DT_ResponseClass   fix_objectClass;
-};
-
-static std::shared_ptr<PluginScene> m_Scene;
-static std::shared_ptr<std::vector<PluginObject>> m_Objects;
-static std::list<PluginCollisionData> m_CollResult;
-
 DT_Bool collResp(void* client_data, void* obj1, void* obj2, const DT_CollData* coll_data)
 {
-	PluginCollisionData data;
-	data.point1[0] = coll_data->point1[0];
-	data.point1[1] = coll_data->point1[1];
-	data.point1[2] = coll_data->point1[2];
-	data.point2[0] = coll_data->point2[0];
-	data.point2[1] = coll_data->point2[1];
-	data.point2[2] = coll_data->point2[2];
-	data.normal[0] = coll_data->normal[0];
-	data.normal[1] = coll_data->normal[1];
-	data.normal[2] = coll_data->normal[2];
-	m_CollResult.push_back(data);
+	const auto& myObj1 = *(PluginObject*)obj1;
+	const auto& myObj2 = *(PluginObject*)obj2;
+		
+	m_CollResult->id1 = myObj1.id;
+	m_CollResult->id2 = myObj2.id;
+
+	m_CollResult->point1[0] = coll_data->point1[0];
+	m_CollResult->point1[1] = coll_data->point1[1];
+	m_CollResult->point1[2] = coll_data->point1[2];
+
+	m_CollResult->point2[0] = coll_data->point2[0];
+	m_CollResult->point2[1] = coll_data->point2[1];
+	m_CollResult->point2[2] = coll_data->point2[2];
+
+	m_CollResult->normal[0] = coll_data->normal[0];
+	m_CollResult->normal[1] = coll_data->normal[1];
+	m_CollResult->normal[2] = coll_data->normal[2];
 
 	return DT_CONTINUE;
 }
@@ -47,28 +31,26 @@ DT_Bool collResp(void* client_data, void* obj1, void* obj2, const DT_CollData* c
 void InitCollisionDetection()
 {
 	m_Objects = std::make_shared<std::vector<PluginObject>>();
+	m_Objects->reserve(100);
+	m_CollResult = std::make_shared<PluginCollisionData>();
 
 	m_Scene = std::make_shared<PluginScene>();
 	m_Scene->scene = DT_CreateScene();
 
 	m_Scene->respTable = DT_CreateRespTable();
 	m_Scene->objectClass = DT_GenResponseClass(m_Scene->respTable);
-	DT_AddPairResponse(m_Scene->respTable, m_Scene->objectClass, m_Scene->objectClass, collResp, DT_DEPTH_RESPONSE, nullptr);
-}  
 
-unsigned int CollisionCheck()
+	DT_AddPairResponse(m_Scene->respTable, m_Scene->objectClass, m_Scene->objectClass, collResp, DT_DEPTH_RESPONSE, nullptr);
+}
+
+unsigned int AllObjectsCollisionCheck()
 {
 	return DT_Test(m_Scene->scene, m_Scene->respTable);
 }
 
-void* GetCollisionResultPtr()
+void* GetCollisionPtr()
 {
-	return &m_CollResult;
-}
-
-std::list<PluginCollisionData>* GetVectorCollisionResult()
-{
-	return &m_CollResult;
+	return m_CollResult.get();
 }
 
 void Dispose()
@@ -85,7 +67,7 @@ void Dispose()
 	DT_DestroyScene(m_Scene->scene);
 }
 
-unsigned int ConstructComplexShape(const void* vertex, const unsigned int* indices, unsigned int count)
+unsigned int ConstructComplexShape(const void* vertex, const unsigned int* indices, unsigned int vertexCount)
 {
 	if (!m_Scene)
 		InitCollisionDetection();
@@ -95,8 +77,9 @@ unsigned int ConstructComplexShape(const void* vertex, const unsigned int* indic
 
 	object.vertexBase = DT_NewVertexBase(vertex, 0);
 	object.shape = DT_NewComplexShape(object.vertexBase);
+	object.id = (int)m_Objects->size() - 1;
 
-	for (auto i = 0u; i < count; i += 3)
+	for (auto i = 0u; i < vertexCount; i += 3)
 	{
 		DT_Begin();
 		if (indices != nullptr)
@@ -125,23 +108,23 @@ unsigned int ConstructComplexShape(const void* vertex, const unsigned int* indic
 	return (unsigned int)m_Objects->size() - 1u;
 }
 
-unsigned int ConstructRigidBody(ShapeType shapeType, const float* pos, const float radius, const float height)
+unsigned int ConstructRigidBody(unsigned int shapeType, const float* pos, const float radius, const float height)
 {
 	m_Objects->emplace_back();
 	auto& object = m_Objects->back();
+	object.id = (int)m_Objects->size() - 1;
 
 	switch (shapeType)
 	{
-		case ShapeType::CUBE:
-			object.shape = DT_NewBox(radius, radius, radius);
-			break;
-		case ShapeType::SPHERE:
-			object.shape = DT_NewSphere(radius);
-			break;
-		case ShapeType::CYLINDER:
-			object.shape = DT_NewCylinder(radius, height);
-			break;
-
+	case static_cast<unsigned int>(ShapeType::CUBE):
+		object.shape = DT_NewBox(radius, radius, radius);
+		break;
+	case static_cast<unsigned int>(ShapeType::SPHERE):
+		object.shape = DT_NewSphere(radius);
+		break;
+	case static_cast<unsigned int>(ShapeType::CYLINDER):
+		object.shape = DT_NewCylinder(radius, height);
+		break;
 	}
 
 	object.object = DT_CreateObject(&object, object.shape);

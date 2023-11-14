@@ -359,6 +359,7 @@
     <ClCompile Include="examples\dynamics\Kinetic.cpp" />
     <ClCompile Include="examples\dynamics\RigidBody.cpp" />
     <ClCompile Include="examples\gldemo.cpp" />
+    <ClCompile Include="examples\physics.cpp" />
     <ClCompile Include="samples\Plugin.cpp" />
     <ClCompile Include="src\broad\BP_C-api.cpp" />
     <ClCompile Include="src\broad\BP_EndpointList.cpp" />

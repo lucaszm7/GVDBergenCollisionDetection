@@ -308,6 +308,9 @@
     <ClCompile Include="examples\gldemo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="examples\physics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="samples\teapot.vrt" />
